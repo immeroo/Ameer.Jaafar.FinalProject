@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تتبع المالي للطلاب - قسم علوم الحاسوب</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>نظام تتبع المالي للطلاب</h1>
+            <h2>قسم علوم الحاسوب</h2>
+        </header>
+
+        <div class="academic-year-filter">
+            <button class="btn year-btn" data-year="1">المرحلة الأولى</button>
+            <button class="btn year-btn" data-year="2">المرحلة الثانية</button>
+            <button class="btn year-btn" data-year="3">المرحلة الثالثة</button>
+            <button class="btn year-btn" data-year="4">المرحلة الرابعة</button>
+        </div>
+
+        <div class="controls">
+            <select id="branch" class="select-input">
+                <option value="">اختر الفرع</option>
+                <option value="software">برمجيات</option>
+                <option value="is">نظم المعلومات</option>
+                <option value="cyber">الأمن السيبراني</option>
+                <option value="networks">الشبكات</option>
+                <option value="ai">الذكاء الاصطناعي</option>
+                <option value="multimedia">وسائط متعددة</option>
+            </select>
+
+            <select id="shift" class="select-input">
+                <option value="">اختر الدوام</option>
+                <option value="morning">صباحي</option>
+                <option value="evening">مسائي</option>
+            </select>
+
+            <input type="text" id="searchStudent" class="select-input" placeholder="ابحث عن طالب...">
+            <button id="addStudent" class="btn">إضافة طالب جديد</button>
+            <button onclick="logout()" class="btn btn-cancel">تسجيل الخروج</button>
+        </div>
+
+        <div class="student-form hidden" id="studentForm">
+            <h3>إضافة طالب جديد</h3>
+            <form id="newStudentForm">
+                <input type="text" id="studentName" placeholder="اسم الطالب" required>
+                <select id="studentYear" class="select-input" required>
+                    <option value="1">المرحلة الأولى</option>
+                    <option value="2">المرحلة الثانية</option>
+                    <option value="3">المرحلة الثالثة</option>
+                    <option value="4">المرحلة الرابعة</option>
+                </select>
+                <input type="number" id="totalFees" placeholder="المبلغ الكلي" required>
+                <input type="number" id="paidAmount" placeholder="المبلغ المدفوع" required>
+                <select id="studentType" class="select-input" required>
+                    <option value="regular">مركزي</option>
+                    <option value="parallel">موازي</option>
+                </select>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="paymentType" id="paymentType" value="direct" required checked>
+                        <span class="radio-text">✓</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn">حفظ</button>
+                <button type="button" class="btn btn-cancel" id="cancelForm">إلغاء</button>
+            </form>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h4>برمجيات</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="softwareStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="softwareStudentsEvening">0</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h4>نظم المعلومات</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="isStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="isStudentsEvening">0</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h4>الأمن السيبراني</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="cyberStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="cyberStudentsEvening">0</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h4>الشبكات</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="networksStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="networksStudentsEvening">0</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h4>الذكاء الاصطناعي</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="aiStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="aiStudentsEvening">0</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h4>وسائط متعددة</h4>
+                <div class="shift-counts">
+                    <p>صباحي: <span id="multimediaStudentsMorning">0</span></p>
+                    <p>مسائي: <span id="multimediaStudentsEvening">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="students-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم الطالب</th>
+                        <th>الفرع</th>
+                        <th>الدوام</th>
+                        <th>المرحلة</th>
+                        <th>المبلغ الكلي</th>
+                        <th>المبلغ المدفوع</th>
+                        <th>المبلغ المتبقي</th>
+                        <th>نوع القبول</th>
+                        <th>رسوم مباشرة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
