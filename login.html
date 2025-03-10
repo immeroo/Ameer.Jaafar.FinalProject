@@ -3,22 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - نظام تتبع المالي للطلاب</title>
     <link rel="stylesheet" href="styles.css">
+      <script src="https://cdn.tailwindcss.com"></script>
+      
+    
+      <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat" style="background-image:url('https://images.unsplash.com/photo-1499123785106-343e69e68db1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1748&q=80')">
+        <div class="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
+          <div class="text-white">
+            <div class="mb-8 flex flex-col items-center">
+              <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<dotlottie-player src="https://lottie.host/7a4b2327-cf50-4bf3-9cd2-86f757f95a56/dKzN4rBRbO.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
+              
+              <span class="text-gray-300">To Student Financial Tracking System</span>
+            </div>
+            <form id="loginForm" action="#">
+              <div class="mb-4 text-lg">
+                <input class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="text" name="name" placeholder="Username" id="username" required />
+              </div>
+      
+              <div class="mb-4 text-lg">
+                <input class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md" type="Password" name="name" placeholder="*********" id="password" required />
+              </div>
+              <div class="mt-8 flex justify-center text-lg text-black">
+                <button type="submit" class="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>نظام تتبع المالي للطلاب</h1>
-            <h2>قسم علوم الحاسوب</h2>
-        </header>
-
-        <div class="login-form">
-            <h3>تسجيل الدخول</h3>
-            <form id="loginForm">
-                <input type="text" id="username" placeholder="اسم المستخدم" required>
-                <input type="password" id="password" placeholder="كلمة المرور" required>
-                <button type="submit" class="btn">دخول</button>
             </form>
         </div>
     </div>

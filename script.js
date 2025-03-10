@@ -68,7 +68,7 @@ newStudentForm.addEventListener('submit', (e) => {
         totalFees: parseFloat(document.getElementById('totalFees').value),
         paidAmount: parseFloat(document.getElementById('paidAmount').value),
         studentType: document.getElementById('studentType').value,
-        paymentType: document.querySelector('input[name="paymentType"]:checked').value
+        paymentType: document.getElementById('paymentType').checked ? 'direct' : 'indirect'
     };
 
     students.push(student);
@@ -101,7 +101,7 @@ function updateTable() {
             <td>${student.paidAmount}</td>
             <td>${student.totalFees - student.paidAmount}</td>
             <td>${student.studentType === 'regular' ? 'مركزي' : 'موازي'}</td>
-            <td>${student.paymentType === 'direct' ? '✓' : ''}</td>
+            <td>${student.paymentType === 'direct' ? '✓' : '-'}</td>
             <td>
                 <button class="btn" onclick="editPayment('${student.id}')">تعديل</button>
                 <button class="btn btn-cancel" onclick="deleteStudent('${student.id}')">حذف</button>
@@ -168,7 +168,7 @@ function updateTable() {
             <td>${student.paidAmount}</td>
             <td>${student.totalFees - student.paidAmount}</td>
             <td>${student.studentType === 'parallel' ? 'موازي' : 'مركزي'}</td>
-            <td>${student.paymentType === 'direct' ? '✓' : ''}</td>
+            <td>${student.paymentType === 'direct' ? '✓' : '-'}</td>
             <td>
                 <button class="btn" onclick="editPayment('${student.id}')">تعديل الدفع</button>
                 <button class="btn btn-cancel" onclick="deleteStudent('${student.id}')">حذف</button>
@@ -192,6 +192,27 @@ function updateStats() {
 }
 
 // Edit student payment
+function handleStudentTypeAndShiftChange() {
+    const shiftSelect = document.getElementById('shift');
+    const studentTypeSelect = document.getElementById('studentType');
+    const totalFeesInput = document.getElementById('totalFees');
+    const paidAmountInput = document.getElementById('paidAmount');
+
+    const isMorningCentral = shiftSelect.value === 'morning' && studentTypeSelect.value === 'regular';
+    
+    totalFeesInput.disabled = isMorningCentral;
+    paidAmountInput.disabled = isMorningCentral;
+    
+    if (isMorningCentral) {
+        totalFeesInput.value = '0';
+        paidAmountInput.value = '0';
+    }
+}
+
+// Add event listeners to both selects
+document.getElementById('shift').addEventListener('change', handleStudentTypeAndShiftChange);
+document.getElementById('studentType').addEventListener('change', handleStudentTypeAndShiftChange);
+
 function editPayment(studentId) {
     const student = students.find(s => s.id === studentId);
     if (!student) return;
@@ -220,10 +241,10 @@ function editPayment(studentId) {
                         <option value="regular" ${student.studentType === 'regular' ? 'selected' : ''}>مركزي</option>
                         <option value="parallel" ${student.studentType === 'parallel' ? 'selected' : ''}>موازي</option>
                     </select>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="editPaymentType" id="editPaymentType" value="direct" ${student.paymentType === 'direct' ? 'checked' : ''} required>
-                            <span class="radio-text">✓</span>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="editPaymentType" ${student.paymentType === 'direct' ? 'checked' : ''}>
+                            <span class="checkbox-text">دفع مباشر</span>
                         </label>
                     </div>
                 </div>
@@ -249,7 +270,7 @@ function savePayment(studentId) {
     const newTotalFees = parseFloat(document.getElementById('editTotalFees').value);
     const newPaidAmount = parseFloat(document.getElementById('editPaidAmount').value);
     const newStudentType = document.getElementById('editStudentType').value;
-    const newPaymentType = document.getElementById('editPaymentType').value;
+    const newPaymentType = document.getElementById('editPaymentType').checked ? 'direct' : 'indirect';
 
     if (!newName || !newBranch || !newShift) {
         alert('الرجاء إدخال جميع المعلومات المطلوبة');

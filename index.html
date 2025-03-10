@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام تتبع المالي للطلاب - قسم علوم الحاسوب</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat" style="background-image:url('https://images.unsplash.com/photo-1499123785106-343e69e68db1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1748&q=80')">
+    <div class="container rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
         <header>
             <h1>نظام تتبع المالي للطلاب</h1>
             <h2>قسم علوم الحاسوب</h2>
+            <button onclick="logout()" class="btn btn-cancel header-logout">تسجيل الخروج</button>
         </header>
 
         <div class="academic-year-filter">
@@ -37,12 +40,12 @@
                 <option value="evening">مسائي</option>
             </select>
 
-            <input type="text" id="searchStudent" class="select-input" placeholder="ابحث عن طالب...">
             <button id="addStudent" class="btn">إضافة طالب جديد</button>
-            <button onclick="logout()" class="btn btn-cancel">تسجيل الخروج</button>
         </div>
 
         <div class="student-form hidden" id="studentForm">
+          <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<dotlottie-player src="https://lottie.host/a7bb26b6-f010-41b9-a691-e4d25ccfacf3/m79hzS8SOr.lottie" background="transparent" speed="1" style="width: 100px; height: 100px" loop autoplay></dotlottie-player>
             <h3>إضافة طالب جديد</h3>
             <form id="newStudentForm">
                 <input type="text" id="studentName" placeholder="اسم الطالب" required>
@@ -58,10 +61,10 @@
                     <option value="regular">مركزي</option>
                     <option value="parallel">موازي</option>
                 </select>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="paymentType" id="paymentType" value="direct" required checked>
-                        <span class="radio-text">✓</span>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="paymentType" name="paymentType" value="direct">
+                        <span class="checkbox-text">دفع مباشرة</span>
                     </label>
                 </div>
                 <button type="submit" class="btn">حفظ</button>
@@ -114,6 +117,21 @@
             </div>
         </div>
 
+        <div class="search-container">
+          <label for="simple-search" class="sr-only">Search</label>
+          <div class="relative w-full">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
+                  </svg>
+              </div>
+              <input type="text" id="searchStudent" class="bg-white border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-400 focus:border-blue-400 block w-half ps-10 p-2.5 dark:bg-gray-300 dark:border-gray-400 dark:placeholder-gray-600 dark:text-black dark:focus:ring-blue-300 dark:focus:border-blue-300" placeholder="ابحث عن طالب ..." required />
+          </div>
+  
+
+          
+        </div>
+
         <div class="students-table">
             <table>
                 <thead>
@@ -126,7 +144,7 @@
                         <th>المبلغ المدفوع</th>
                         <th>المبلغ المتبقي</th>
                         <th>نوع القبول</th>
-                        <th>رسوم مباشرة</th>
+                        <th>رسوم المباشرة</th>
                         <th>الإجراءات</th>
                     </tr>
                 </thead>
